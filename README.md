@@ -1,28 +1,66 @@
-## USDC WETH flash swaps
+## Foundry
 
-This bot is not intended to land transactions but to practise:
+**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
 
-- foundry
-- interacting with Uniswap v2 and v3
-- reading from storage and calling contracts
-- sending transactions using flashbots
+Foundry consists of:
 
-This bot looks for price differences between Uniswap v2 and v3 pools and uses flash swaps to capture arbitrage.
+-   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
+-   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
+-   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
+-   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-## Forge tests
+## Documentation
 
-```bash
-forge build
+https://book.getfoundry.sh/
 
-# RPC_URL=https://mainnet.infura.io/v3/<PROJECT_ID>
-forge test -f $RPC_URL -vvv
+## Usage
+
+### Build
+
+```shell
+$ forge build
 ```
 
-## Set up
+### Test
 
-- Install Node.js (v18.17.1) with npm (9.6.7)
-- `npm install`
-- Deploy `contracts/FlashArbitrage.sol`.
-- Copy .env.example to .env file in project root.
-- Complete .env file.
-- Start by running `npm run start`
+```shell
+$ forge test
+```
+
+### Format
+
+```shell
+$ forge fmt
+```
+
+### Gas Snapshots
+
+```shell
+$ forge snapshot
+```
+
+### Anvil
+
+```shell
+$ anvil
+```
+
+### Deploy
+
+```shell
+$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+
+### Cast
+
+```shell
+$ cast <subcommand>
+```
+
+### Help
+
+```shell
+$ forge --help
+$ anvil --help
+$ cast --help
+```
