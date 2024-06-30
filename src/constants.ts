@@ -1,0 +1,4 @@
+export const WETH = "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2";
+export const USDC = "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48";
+export const USDC_WETH_V2_POOL = "0xb4e16d0168e52d35cacd2c6185b44281ec28c9dc";
+export const USDC_WETH_V3_POOL = "0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640";

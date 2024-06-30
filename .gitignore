@@ -1,0 +1,9 @@
+#
+**/node_modules/
+
+# Dotenv file
+.env
+
+**/.vscode/
+
+**/.DS_Store

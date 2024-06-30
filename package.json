@@ -1,0 +1,23 @@
+{
+  "name": "uni-arb",
+  "version": "1.0.0",
+  "description": "Uniswap v2/v3 arb bot",
+  "scripts": {
+    "start": "ts-node src/index.ts"
+  },
+  "author": "mathcoder9",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/lodash": "^4.17.6",
+    "@types/node": "^20.14.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.2"
+  },
+  "dependencies": {
+    "@flashbots/ethers-provider-bundle": "^1.0.0",
+    "bignumber.js": "^9.1.2",
+    "dotenv": "^16.4.5",
+    "ethers": "6.7.1",
+    "lodash": "^4.17.21"
+  }
+}
