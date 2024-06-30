@@ -7,7 +7,7 @@ export class UniswappyV3Pricer extends Pricer {
     super(address, provider);
   }
 
-  // Get price of WETH in USDC
+  // Get price of WETH in USDC - example of directly accessing a slot and parsing
   public async getPrice(): Promise<BigNumber> {
     // get slot 0
     const storage = await this._provider.getStorage(this._address, 0);
@@ -17,7 +17,7 @@ export class UniswappyV3Pricer extends Pricer {
     const priceX96 = sqrtPriceX96.exponentiatedBy(2);
     const powerOf96 = new BigNumber("2").exponentiatedBy(192);
     const scaledPriceX96 = priceX96.dividedBy(powerOf96);
-  
+
     const decimalScaledPriceX96 = scaledPriceX96.dividedBy(10 ** 12);
     // return price of ETH/USDC
     return new BigNumber("1").dividedBy(decimalScaledPriceX96);
