@@ -42,7 +42,7 @@ contract FlashArbitrageTest is Test {
 
     function inflateV2Pool() public {
         address priceChanger = vm.addr(2);
-        vm.deal(priceChanger, 100 ether);
+        vm.deal(priceChanger, 500 ether);
         vm.startPrank(priceChanger);
 
         address[] memory path;
@@ -50,7 +50,7 @@ contract FlashArbitrageTest is Test {
         path[0] = address(weth);
         path[1] = address(usdc);
 
-        swapRouter.swapExactETHForTokens{value: 100 ether}(
+        swapRouter.swapExactETHForTokens{value: 500 ether}(
             10,
             path,
             msg.sender,
@@ -73,6 +73,20 @@ contract FlashArbitrageTest is Test {
         });
         flashArbitrage.initFlash(params);
         console.log("ETH balance after:", executor.balance);
+        vm.stopPrank();
+    }
+
+    function test_RevertIf_PairOrderWrong() public {
+        vm.expectRevert("Pair order wrong");
+        vm.startPrank(executor);
+        FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
+            token0: address(weth),
+            token1: address(usdc),
+            fee1: 30000,
+            wethToBorrow: 0.06 ether,
+            amountToCoinbase: 0.05 ether
+        });
+        flashArbitrage.initFlash(params);
         vm.stopPrank();
     }
 
