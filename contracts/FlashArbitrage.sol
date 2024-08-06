@@ -152,6 +152,8 @@ contract FlashArbitrage is IUniswapV3SwapCallback {
             "Must be a WETH pair"
         );
 
+        require(params.token0 < params.token1, "Pair order wrong");
+
         PoolAddress.PoolKey memory poolKey = PoolAddress.PoolKey({
             token0: params.token0,
             token1: params.token1,
