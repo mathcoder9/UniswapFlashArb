@@ -164,13 +164,15 @@ contract FlashArbitrage is IUniswapV3SwapCallback {
         );
 
         bool token0IsWeth = (params.token0 == WETH9);
-
-        // sqrtPriceLimitX96 is hard coded as TickMath.MAX_SQRT_RATIO - 1 (this needs to be adjusted depending on token0IsWeth)
+        // sqrtPriceLimitX96 is hard coded as TickMath.MIN_SQRT_RATIO + 1 or TickMath.MAX_SQRT_RATIO - 1
+        uint160 sqrtPriceLimitX96 = token0IsWeth
+            ? 4295128739 + 1
+            : 1461446703485210103287273052203988822378723970340;
         pool.swap(
             address(this),
             token0IsWeth,
             int256(params.wethToBorrow),
-            1461446703485210103287273052203988822378723970340,
+            sqrtPriceLimitX96,
             abi.encode(
                 FlashCallbackData({
                     payer: msg.sender,
