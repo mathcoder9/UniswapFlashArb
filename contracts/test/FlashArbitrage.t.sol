@@ -23,12 +23,12 @@ contract FlashArbitrageTest is Test {
     FlashArbitrage flashArbitrage;
     address executor;
 
-    IERC20 private constant dai = IERC20(Address.DAI);
+    IERC20 private constant usdc = IERC20(Address.USDC);
     IWETH9 private constant weth = IWETH9(Address.WETH9);
 
     IUniswapV2Router02 private constant swapRouter =
         IUniswapV2Router02(Address.UNIV2_ROUTER);
-    IUniswapV2Pair v2Pair = IUniswapV2Pair(Address.UNIV2_DAI_WETH_POOL);
+    IUniswapV2Pair v2Pair = IUniswapV2Pair(Address.UNIV2_USDC_WETH_POOL);
 
     function setUp() public {
         executor = vm.addr(1);
@@ -48,7 +48,7 @@ contract FlashArbitrageTest is Test {
         address[] memory path;
         path = new address[](2);
         path[0] = address(weth);
-        path[1] = address(dai);
+        path[1] = address(usdc);
 
         swapRouter.swapExactETHForTokens{value: 100 ether}(
             10,
@@ -65,8 +65,8 @@ contract FlashArbitrageTest is Test {
         vm.startPrank(executor);
         console.log("ETH balance before:", executor.balance);
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
-            token0: Address.DAI,
-            token1: Address.WETH9,
+            token0: address(usdc),
+            token1: address(weth),
             fee1: 3000,
             wethToBorrow: 1 ether,
             amountToCoinbase: 0.005 ether
@@ -82,8 +82,8 @@ contract FlashArbitrageTest is Test {
         vm.startPrank(executor);
         console.log("ETH balance before:", executor.balance);
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
-            token0: Address.DAI,
-            token1: Address.WETH9,
+            token0: address(usdc),
+            token1: address(weth),
             fee1: 3000,
             wethToBorrow: 0.06 ether,
             amountToCoinbase: 0.05 ether
@@ -98,8 +98,8 @@ contract FlashArbitrageTest is Test {
         vm.expectRevert("Exec Only");
         vm.startPrank(nonExecutor);
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
-            token0: Address.DAI,
-            token1: Address.WETH9,
+            token0: address(usdc),
+            token1: address(weth),
             fee1: 3000,
             wethToBorrow: 0.1 ether,
             amountToCoinbase: 0.05 ether
@@ -123,7 +123,7 @@ contract FlashArbitrageTest is Test {
     function test_RevertIf_WrongAddressCanUseCallBack(
         address wrongAddress
     ) public {
-        vm.assume(wrongAddress != Address.UNIV3_DAI_WETH_POOL);
+        vm.assume(wrongAddress != Address.UNIV3_USDC_WETH_POOL);
         vm.expectRevert("Function must be called from pool");
         vm.startPrank(wrongAddress);
         flashArbitrage.uniswapV3SwapCallback(
@@ -133,7 +133,7 @@ contract FlashArbitrageTest is Test {
                 FlashArbitrage.FlashCallbackData({
                     payer: msg.sender,
                     poolKey: PoolAddress.PoolKey({
-                        token0: address(dai),
+                        token0: address(usdc),
                         token1: address(weth),
                         fee: 3000
                     }),
