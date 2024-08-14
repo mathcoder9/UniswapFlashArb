@@ -114,7 +114,7 @@ async function main() {
   pricePrinter.print(erc20TokenToTry);
 
   let previousBalance = await provider.getBalance(BUNDLE_EXECUTOR.address);
-  console.log(`Initial wallet balance: ${formatEther(previousBalance)}`);
+  console.log(`Initial wallet balance: ${formatEther(previousBalance)} ETH`);
 
   provider.on("block", async (blockNumber) => {
     const [block, currentBalance] = await Promise.all([
@@ -123,9 +123,9 @@ async function main() {
     ]);
     console.log("Block number: ", block.number);
     console.log(
-      `Wallet Balance: ${formatEther(previousBalance)} -> ${formatEther(
+      `Wallet Balance: ${formatEther(previousBalance)} ETH -> ${formatEther(
         currentBalance
-      )}`
+      )} ETH`
     );
     previousBalance = currentBalance;
 

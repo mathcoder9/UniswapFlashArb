@@ -57,7 +57,7 @@ export class FlashArbHelper {
       console.log(
         `Effective priority fee: ${
           this.calculateAmountToCoinbase(erc20Address) / receipt.gasUsed
-        } WEI/unit`
+        } WEI`
       );
       console.log(
         `Eth sent to miner: ${formatEther(
@@ -169,10 +169,8 @@ export class FlashArbHelper {
     } else {
       console.log(`✅ Simulation Success: ${block.number}`);
       console.log(`Gas used: ${simulation.totalGasUsed} units`);
-      console.log(`Base gas fee: ${block.baseFeePerGas} WEI/unit`);
-      console.log(
-        `Effective priority fee: ${simulation.bundleGasPrice} WEI/unit`
-      );
+      console.log(`Base gas fee: ${block.baseFeePerGas} WEI`);
+      console.log(`Effective priority fee: ${simulation.bundleGasPrice} WEI`);
       console.log(
         `Priority gas fee sent to miner: ${formatEther(simulation.gasFees)} ETH`
       );
