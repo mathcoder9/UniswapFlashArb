@@ -67,7 +67,7 @@ contract FlashArbitrageTest is Test {
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
             token0: address(usdc),
             token1: address(weth),
-            fee1: 3000,
+            poolFee: 3000,
             wethToBorrow: 1 ether,
             amountToCoinbase: 0.005 ether
         });
@@ -82,7 +82,7 @@ contract FlashArbitrageTest is Test {
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
             token0: address(weth),
             token1: address(usdc),
-            fee1: 30000,
+            poolFee: 30000,
             wethToBorrow: 0.06 ether,
             amountToCoinbase: 0.05 ether
         });
@@ -98,7 +98,7 @@ contract FlashArbitrageTest is Test {
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
             token0: address(usdc),
             token1: address(weth),
-            fee1: 3000,
+            poolFee: 3000,
             wethToBorrow: 0.06 ether,
             amountToCoinbase: 0.05 ether
         });
@@ -114,7 +114,7 @@ contract FlashArbitrageTest is Test {
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
             token0: address(usdc),
             token1: address(weth),
-            fee1: 3000,
+            poolFee: 3000,
             wethToBorrow: 0.1 ether,
             amountToCoinbase: 0.05 ether
         });
