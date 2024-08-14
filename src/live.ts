@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
 import { JsonRpcProvider, Wallet, formatEther } from "ethers";
-import { UniswapV2Pricer } from "./pricers/uni-v2-pricer";
-import { UniswapV3Pricer } from "./pricers/uni-v3-pricer";
 import { FlashArbHelper } from "./helper/flash-arb-helper";
 import { PricePrinter } from "./helper/price-printer";
 import { FlashbotsBundleProvider } from "@flashbots/ethers-provider-bundle";
@@ -100,9 +98,7 @@ function checkChainIsSepolia() {
 async function main() {
   await confirmOnChain();
   checkChainIsSepolia();
-  const v2Pricer = new UniswapV2Pricer(provider);
-  const v3Pricer = new UniswapV3Pricer(provider);
-  const pricePrinter = new PricePrinter(v2Pricer, v3Pricer);
+  const pricePrinter = new PricePrinter(provider);
   const flashbotsProvider = await FlashbotsBundleProvider.create(
     provider,
     authSigner,

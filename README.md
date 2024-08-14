@@ -124,7 +124,7 @@ This setup allows the bot to (barely - SepoliaEth is hard to come by) perform ar
    npm run local
    ```
 
-# Running on-chain
+## Running on-chain
 
 ### Mainnet
 

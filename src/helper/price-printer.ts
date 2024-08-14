@@ -1,14 +1,17 @@
 import BigNumber from "bignumber.js";
 import { PoolHelper } from "../constants";
 import { Pricer } from "../pricers/pricer";
+import { UniswapV2Pricer } from "../pricers/uni-v2-pricer";
+import { UniswapV3Pricer } from "../pricers/uni-v3-pricer";
+import { JsonRpcProvider } from "ethers";
 
 export class PricePrinter {
   private _v2Pricer: Pricer;
   private _v3Pricer: Pricer;
 
-  constructor(v2Pricer: Pricer, v3Pricer: Pricer) {
-    this._v2Pricer = v2Pricer;
-    this._v3Pricer = v3Pricer;
+  constructor(provider: JsonRpcProvider) {
+    this._v2Pricer = new UniswapV2Pricer(provider);
+    this._v3Pricer = new UniswapV3Pricer(provider);
   }
 
   public async print(
