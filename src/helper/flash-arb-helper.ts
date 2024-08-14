@@ -188,9 +188,9 @@ export class FlashArbHelper {
     // for (var i = 1; i <= 10; i++) {
     //   const bundleSubmission = this._flashbotsBundleProvider.sendRawBundle(
     //     signedTransactions,
-    //     blockNumber + i
+    //     block.number + i,
     //   );
-    //   console.log("submitted for block # ", blockNumber + i);
+    //   console.log("submitted for block # ", block.number + i);
     // }
     // console.log("bundles submitted");
   }
