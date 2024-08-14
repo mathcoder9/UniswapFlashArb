@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
 import { JsonRpcProvider, Wallet, formatEther } from "ethers";
-import { UniswapV2Pricer } from "./pricers/uni-v2-pricer";
-import { UniswapV3Pricer } from "./pricers/uni-v3-pricer";
 import { inflateV2Pool } from "./helper/inflate-v2";
 import { FlashArbHelper } from "./helper/flash-arb-helper";
 import { PricePrinter } from "./helper/price-printer";
@@ -66,9 +64,7 @@ const erc20TokenToTry: [tokenName: string, tokenAddress: string] =
     : ["HGR", "0xD6Af5333dee494DDfB6f72AdA7B4ED950bE585a6"];
 
 async function main() {
-  const v2Pricer = new UniswapV2Pricer(provider);
-  const v3Pricer = new UniswapV3Pricer(provider);
-  const pricePrinter = new PricePrinter(v2Pricer, v3Pricer);
+  const pricePrinter = new PricePrinter(provider);
   const flashArbHelper = new FlashArbHelper(
     BUNDLE_EXECUTOR,
     process.env.LOCAL_FLASHARB_ADDRESS,
