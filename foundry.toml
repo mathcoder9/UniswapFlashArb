@@ -4,4 +4,7 @@ out = "out"
 libs = ["lib"]
 solc = "0.8.20"
 
-# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
+[rpc_endpoints]
+local = "${LOCAL_RPC_URL}"
+live = "${LIVE_RPC_URL}"
+

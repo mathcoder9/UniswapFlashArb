@@ -36,7 +36,7 @@ export const FLASH_ARB_ABI = [
         components: [
           { name: "token0", type: "address", internalType: "address" },
           { name: "token1", type: "address", internalType: "address" },
-          { name: "fee1", type: "uint24", internalType: "uint24" },
+          { name: "poolFee", type: "uint24", internalType: "uint24" },
           { name: "wethToBorrow", type: "uint256", internalType: "uint256" },
           {
             name: "amountToCoinbase",

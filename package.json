@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Uniswap v2/v3 arb bot",
   "scripts": {
-    "start": "ts-node src/index.ts"
+    "live": "ts-node src/live.ts",
+    "local": "ts-node src/local.ts"
   },
   "author": "mathcoder9",
   "license": "ISC",
@@ -17,7 +18,8 @@
     "@flashbots/ethers-provider-bundle": "^1.0.0",
     "bignumber.js": "^9.1.2",
     "dotenv": "^16.4.5",
-    "ethers": "6.7.1",
-    "lodash": "^4.17.21"
+    "ethers": "^6.13.2",
+    "lodash": "^4.17.21",
+    "readline": "^1.3.0"
   }
 }

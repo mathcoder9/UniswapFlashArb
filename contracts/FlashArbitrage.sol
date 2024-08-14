@@ -131,7 +131,7 @@ contract FlashArbitrage is IUniswapV3SwapCallback {
     struct FlashParams {
         address token0;
         address token1;
-        uint24 fee1;
+        uint24 poolFee;
         uint256 wethToBorrow;
         uint256 amountToCoinbase;
     }
@@ -157,7 +157,7 @@ contract FlashArbitrage is IUniswapV3SwapCallback {
         PoolAddress.PoolKey memory poolKey = PoolAddress.PoolKey({
             token0: params.token0,
             token1: params.token1,
-            fee: params.fee1
+            fee: params.poolFee
         });
         IUniswapV3Pool pool = IUniswapV3Pool(
             PoolAddress.computeAddress(factory, poolKey)

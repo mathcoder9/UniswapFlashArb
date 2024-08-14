@@ -1,24 +1,27 @@
 import { Contract, JsonRpcProvider } from "ethers";
-import BigNumber from "bignumber.js";
-import { Pricer } from "./Pricer";
-import { UNISWAP_V2_PAIR_ABI } from "../abi/UniswapV2PairABI";
+import { UNISWAP_V2_PAIR_ABI } from "../abi/uniswap-v2-pair-abi";
+import { Pricer } from "./pricer";
+import { BigNumber } from "bignumber.js";
 
-export class UniswappyV2Pricer extends Pricer {
-  private _contract;
-
-  constructor(address: string, provider: JsonRpcProvider) {
-    super(address, provider);
-    this._contract = new Contract(this._address, UNISWAP_V2_PAIR_ABI, provider);
+export class UniswapV2Pricer extends Pricer {
+  constructor(provider: JsonRpcProvider) {
+    super(provider);
   }
 
   // Get price of WETH in USDC
-  public async getPrice(): Promise<BigNumber> {
+  public async getPrice(
+    poolAddress: string,
+    decimals: number,
+    isWethToken0: boolean
+  ): Promise<BigNumber> {
+    const contract = new Contract(
+      poolAddress,
+      UNISWAP_V2_PAIR_ABI,
+      this._provider
+    );
     try {
-      if (!this._contract) {
-        throw Error("Contract must be initalised");
-      }
       // Call the view function
-      const contractResult = await this._contract.getReserves();
+      const contractResult = await contract.getReserves();
 
       const [reserve0, reserve1] = contractResult
         .slice(0, 2)
@@ -26,13 +29,16 @@ export class UniswappyV2Pricer extends Pricer {
 
       // decimals of USDC = 6
       const adjustedReserve0 = new BigNumber(reserve0).dividedBy(
-        new BigNumber(10).exponentiatedBy(6)
+        new BigNumber(10).exponentiatedBy(decimals)
       );
       // decimals of WETH = 18
       const adjustedReserve1 = new BigNumber(reserve1).dividedBy(
         new BigNumber(10).exponentiatedBy(18)
       );
 
+      if (isWethToken0) {
+        return adjustedReserve1.dividedBy(adjustedReserve0);
+      }
       return adjustedReserve0.dividedBy(adjustedReserve1);
     } catch (error) {
       console.error("Error calling contract function:", error);
