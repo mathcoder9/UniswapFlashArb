@@ -74,8 +74,7 @@ async function main() {
   pricePrinter.print(erc20TokenToTry);
 
   if (chainId == MAINNET_CHAIN_ID) {
-    const blockNumber = await provider.getBlockNumber();
-    const block = await provider.getBlock(blockNumber);
+    const block = await provider.getBlock("latest");
     console.log("Inflating V2 Pool...");
     try {
       await inflateV2Pool(
