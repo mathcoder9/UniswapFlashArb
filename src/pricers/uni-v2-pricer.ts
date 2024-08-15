@@ -27,11 +27,10 @@ export class UniswapV2Pricer extends Pricer {
         .slice(0, 2)
         .map((n) => new BigNumber(n.toString()));
 
-      // decimals of USDC = 6
       const adjustedReserve0 = new BigNumber(reserve0).dividedBy(
         new BigNumber(10).exponentiatedBy(decimals)
       );
-      // decimals of WETH = 18
+
       const adjustedReserve1 = new BigNumber(reserve1).dividedBy(
         new BigNumber(10).exponentiatedBy(18)
       );
@@ -44,6 +43,6 @@ export class UniswapV2Pricer extends Pricer {
       console.error("Error calling contract function:", error);
     }
 
-    return new BigNumber("-1");
+    return new BigNumber(1);
   }
 }

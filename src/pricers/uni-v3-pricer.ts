@@ -27,13 +27,13 @@ export class UniswapV3Pricer extends Pricer {
     isWethToken0: boolean
   ): BigNumber {
     const priceX96 = sqrtPriceX96.exponentiatedBy(2);
-    const powerOf96 = new BigNumber("2").exponentiatedBy(192);
+    const powerOf96 = new BigNumber(2).exponentiatedBy(192);
     const scaledPriceX96 = priceX96.dividedBy(powerOf96);
     const decimalScaledPriceX96 = scaledPriceX96.dividedBy(
       10 ** (18 - decimals)
     );
     if (!isWethToken0) {
-      return new BigNumber("1").dividedBy(decimalScaledPriceX96);
+      return new BigNumber(1).dividedBy(decimalScaledPriceX96);
     }
     return decimalScaledPriceX96;
   }
