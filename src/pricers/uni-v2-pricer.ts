@@ -43,6 +43,6 @@ export class UniswapV2Pricer extends Pricer {
       console.error("Error calling contract function:", error);
     }
 
-    return new BigNumber("-1");
+    return new BigNumber(1);
   }
 }
