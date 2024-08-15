@@ -108,8 +108,8 @@ contract FlashArbitrageTest is Test {
     }
 
     function test_RevertIf_NotExecutor(address nonExecutor) public {
-        vm.expectRevert("Exec Only");
         vm.assume(nonExecutor != executor);
+        vm.expectRevert("Exec Only");
         vm.startPrank(nonExecutor);
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
             token0: address(usdc),
@@ -151,8 +151,8 @@ contract FlashArbitrageTest is Test {
     }
 
     function test_RevertIfWethNotInPair(address token0, address token1) public {
-        vm.expectRevert("Must be a WETH pair");
         vm.assume(token0 != address(weth) && token1 != address(weth));
+        vm.expectRevert("Must be a WETH pair");
         vm.startPrank(executor);
         FlashArbitrage.FlashParams memory params = FlashArbitrage.FlashParams({
             token0: token0,
@@ -166,8 +166,8 @@ contract FlashArbitrageTest is Test {
     }
 
     function test_RevertIf_NotOwner(address nonOwner) public {
-        vm.expectRevert("Owner Only");
         vm.assume(nonOwner != address(this));
+        vm.expectRevert("Owner Only");
         vm.startPrank(nonOwner);
         flashArbitrage.setExecutor(vm.addr(4));
         vm.stopPrank();
@@ -180,8 +180,8 @@ contract FlashArbitrageTest is Test {
     function test_RevertIf_WrongAddressCanUseCallBack(
         address wrongAddress
     ) public {
-        vm.expectRevert("Function must be called from pool");
         vm.assume(wrongAddress != Address.UNIV3_USDC_WETH_POOL);
+        vm.expectRevert("Function must be called from pool");
         vm.startPrank(wrongAddress);
         flashArbitrage.uniswapV3SwapCallback(
             10,
