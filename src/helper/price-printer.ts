@@ -23,7 +23,7 @@ export class PricePrinter {
       console.log(
         `Could not find pool data for WETH + ${tokenName}(${tokenAddress})`
       );
-      return;
+      [new BigNumber(-1), new BigNumber(-1)];
     }
     try {
       const [v2PoolAddress, v3PoolAddress, decimals, isWethToken0] = lookup;
